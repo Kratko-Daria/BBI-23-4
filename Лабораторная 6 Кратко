@@ -1,0 +1,163 @@
+﻿// See https://aka.ms/new-console-template for more information
+/* // номер 5 уровень 1
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+// Определение структуры Student
+struct Student
+{
+    public string Name;
+    public int Grade;
+    public int MissedClasses;
+
+    public Student(string name, int grade, int missedClasses)
+    {
+        Name = name;
+        Grade = grade;
+        MissedClasses = missedClasses;
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Список студентов
+        List<Student> students = new List<Student>
+        {
+            new Student("Иванов Иван", 3, 5),
+            new Student("Петров Петр", 2, 3),
+            // Добавьте больше студентов здесь
+            new Student("Сидорова Мария", 2, 7),
+        };
+
+        // Фильтрация неуспевающих студентов и сортировка по количеству пропущенных занятий
+        var failingStudents = students.Where(s => s.Grade == 2)
+                                       .OrderByDescending(s => s.MissedClasses)
+                                       .ToList();
+
+        Console.WriteLine("Список неуспевающих студентов (оценка «2»), отсортированный по количеству пропущенных занятий:");
+        foreach (var student in failingStudents)
+        {
+            Console.WriteLine($"{student.Name} - Пропущено занятий: {student.MissedClasses}");
+        }
+    }
+} */
+
+/* // номер 2 уровень 2
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+struct Student
+{
+    public string Name;
+    private int[] Grades;
+
+    public Student(string name, int[] grades)
+    {
+        Name = name;
+        Grades = grades;
+    }
+
+    // Метод для расчета среднего балла
+    public double CalculateAverageGrade() => Grades.Average();
+
+    // Метод для проверки наличия двойки среди оценок
+    public bool HasFailingGrade() => Grades.Contains(2);
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Список студентов с оценками
+        List<Student> students = new List<Student>
+        {
+            new Student("Иванов Иван", new int[] {5, 4, 3}),
+            new Student("Петров Петр", new int[] {2, 3, 4}),
+            new Student("Сидорова Мария", new int[] {4, 5, 5}),
+            // Добавьте больше студентов здесь
+        };
+
+        // Фильтрация студентов, сдавших все экзамены, и сортировка по среднему баллу
+        var successfulStudents = students.Where(s => !s.HasFailingGrade())
+                                          .OrderByDescending(s => s.CalculateAverageGrade())
+                                          .ToList();
+
+        Console.WriteLine("Список студентов, успешно сдавших экзамены:");
+        foreach (var student in successfulStudents)
+        {
+            Console.WriteLine($"{student.Name} - Средний балл: {student.CalculateAverageGrade():F2}");
+        }
+    }
+} */
+
+// номер 4 уровень 3
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+struct Skier
+{
+    public string LastName;
+    public TimeSpan Result; // Время, потраченное на дистанцию
+
+    public Skier(string lastName, TimeSpan result)
+    {
+        LastName = lastName;
+        Result = result;
+    }
+
+    // Метод для вывода информации о лыжнике
+    public void Display(int place)
+    {
+        Console.WriteLine($"{place}\t{LastName}\t{Result}");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Группа A
+        List<Skier> groupA = new List<Skier>
+        {
+            new Skier("Иванов", TimeSpan.FromSeconds(250.5)),
+            new Skier("Петров", TimeSpan.FromSeconds(245.0)),
+            // Добавьте остальных участников группы А
+        };
+
+        // Группа B
+        List<Skier> groupB = new List<Skier>
+        {
+            new Skier("Сидоров", TimeSpan.FromSeconds(260.7)),
+            new Skier("Алексеев", TimeSpan.FromSeconds(240.2)),
+            // Добавьте остальных участников группы B
+        };
+
+        // Сортировка каждой группы по результату
+        groupA = groupA.OrderBy(skier => skier.Result).ToList();
+        groupB = groupB.OrderBy(skier => skier.Result).ToList();
+
+        Console.WriteLine("Результаты соревнований по лыжным гонкам");
+        Console.WriteLine("Место\tФамилия\tВремя");
+
+        Console.WriteLine("\nГруппа A");
+        int place = 1;
+        foreach (var skier in groupA)
+        {
+            skier.Display(place);
+            place++;
+        }
+
+        Console.WriteLine("\nГруппа B");
+        place = 1; // Сброс счетчика мест для группы B
+        foreach (var skier in groupB)
+        {
+            skier.Display(place);
+            place++;
+        }
+    }
+}
