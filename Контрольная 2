@@ -1,0 +1,75 @@
+using System;
+using System.Text.RegularExpressions;
+namespace WordLength
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Вводите слова, завершая каждое нажатием Enter.");
+            Console.WriteLine("Для выхода наберите <exit>");
+            string word;
+            string highestWord = ""; ; int highestLength = 0;
+            while (true)
+            {
+                word = Console.ReadLine();
+                if (String.Compare(word, "exit", true) == 0) break;
+                if (word.Length > highestLength)
+                {
+                    highestWord = word;
+                    highestLength = word.Length;
+                }
+            }
+            Console.WriteLine("Cчитывание завершено.");
+            Console.WriteLine("Самое длинное слово: {0} ({1})", highestWord.ToUpper(), highestWord.Length);
+        }
+    }
+} 
+
+// задача 2 
+using System;
+using System.Text.RegularExpressions;
+
+namespace PalindromeCounter
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string text = "Hello world";
+
+            string pattern = "\\b[a-zA-Z]\\w*[a-zA-Z]\\b";
+            MatchCollection matches = Regex.Matches(text, pattern);
+
+            int palindromeCount = 0;
+            foreach (Match match in matches)
+            {
+                string word = match.Value;
+                if (IsPalindrome(word))
+                {
+                    palindromeCount++;
+                }
+            }
+
+            Console.WriteLine("Number of palindrome words: " + palindromeCount);
+        }
+
+        static bool IsPalindrome(string word)
+        {
+            int left = 0;
+            int right = word.Length - 1;
+
+            while (left < right)
+            {
+                if (word[left] != word[right])
+                {
+                    return false;
+                }
+                left++;
+                right--;
+            }
+
+            return true;
+        }
+    }
+}
